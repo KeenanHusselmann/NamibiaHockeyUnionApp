@@ -13,6 +13,7 @@ import com.example.namibiahockeyunionapp.pages.NewsHeadlinesPage
 import com.example.namibiahockeyunionapp.pages.PlayerDetailsPage
 import com.example.namibiahockeyunionapp.pages.PlayersCategoryPage
 import com.example.namibiahockeyunionapp.pages.PlayersPage
+import com.example.namibiahockeyunionapp.pages.TeamsPage
 import com.example.namibiahockeyunionapp.screens.AuthScreen
 import com.example.namibiahockeyunionapp.screens.HomeScreen
 import com.example.namibiahockeyunionapp.screens.LoginScreen
@@ -49,6 +50,11 @@ fun AppNavigation(modifier: Modifier = Modifier){
         composable("home"){
             HomeScreen(modifier, navController)
         }
+
+        composable("teams"){
+            TeamsPage(modifier, navController = navController, categoryId = "", playerId = "", qty = 0)
+        }
+
         composable("news-headlines/{categoryId}"){
            val categoryId = it.arguments?.getString("categoryId")
             NewsHeadlinesPage(modifier, categoryId?: "")
@@ -57,7 +63,7 @@ fun AppNavigation(modifier: Modifier = Modifier){
             val headlineId = it.arguments?.getString("headlineId")
             NewsDetailsPage(modifier, headlineId?: "")
         }
-        composable("players-category/{playerCategoryId}"){
+        composable(" /{playerCategoryId}"){
             val playerCategoryId = it.arguments?.getString("playerCategoryId")
             PlayersCategoryPage(modifier, playerCategoryId?: "")
         }
