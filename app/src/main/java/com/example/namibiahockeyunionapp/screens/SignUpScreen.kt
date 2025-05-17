@@ -81,13 +81,10 @@ fun SignUpScreen(modifier: Modifier = Modifier, navController: NavController, au
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.logotr),
+                painter = painterResource(id = R.drawable.logonhu),
                 contentDescription = "Login",
                 modifier = Modifier
                     .padding(top = 20.dp)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop
-
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -164,29 +161,33 @@ fun SignUpScreen(modifier: Modifier = Modifier, navController: NavController, au
 
                 Button(
                     onClick = {
-                        isLoading = true
-                        authViewModel.signup(email, name, password) { success, errorMessage ->
-                            if (success) {
-                                isLoading = false
-                                //navigate to home screen
-                                navController.navigate("home") {
-                                    popUpTo("auth") {//clearing backstack
-                                        inclusive = true
+                        if (email.isBlank() || name.isBlank() || password.isBlank()) {
+                            AppUtil.showToast(context, "Please fill in all fields")
+                        } else {
+                            isLoading = true
+                            authViewModel.signup(email, name, password) { success, errorMessage ->
+                                if (success) {
+                                    isLoading = false
+                                    //navigate to home screen
+                                    navController.navigate("home") {
+                                        popUpTo("auth") {//clearing backstack
+                                            inclusive = true
+                                        }
                                     }
+                                } else {
+                                    isLoading = false
+                                    AppUtil.showToast(context, errorMessage ?: "Something went wrong")
                                 }
-                            } else {
-                                isLoading = false
-                                AppUtil.showToast(context, errorMessage ?: "Something went wrong")
                             }
                         }
-
                     },
                     enabled = !isLoading,
                     modifier = Modifier
                         .fillMaxSize()
                         .height(60.dp),
                     colors = ButtonDefaults
-                        .buttonColors(containerColor = Color.Transparent)
+                        .buttonColors(containerColor = Color.Transparent),
+                    elevation = ButtonDefaults.buttonElevation(defaultElevation = 8.dp),
                 ) {
                     Text(
                         text = if (isLoading) "Creating Account..." else "Create Account",

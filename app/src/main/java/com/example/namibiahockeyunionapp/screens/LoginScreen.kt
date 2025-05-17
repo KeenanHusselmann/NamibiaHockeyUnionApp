@@ -78,12 +78,11 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavController, aut
         verticalArrangement = Arrangement.Top
     ) {
         Image(
-            painter = painterResource(id = R.drawable.logotr),
+            painter = painterResource(id = R.drawable.logonhu),
             contentDescription = "Login",
             modifier = Modifier
                 .padding(top = 20.dp)
-                .clip(CircleShape),
-            contentScale = ContentScale.Crop
+
 
         )
 
@@ -165,29 +164,33 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavController, aut
         ) {
             Button(
                 onClick = {
-                    isLoading = true
-                    authViewModel.login(email, password) { success, errorMessage ->
-                        if (success) {
-                            isLoading = false
-                            //navigate to home screen
-                            navController.navigate("home"){
-                                popUpTo("auth"){
-                                    inclusive = true
-                                }
+                    if (email.isBlank() || password.isBlank()) {
+                        AppUtil.showToast(context, "Please enter both email and password")
+                    } else {
+                        isLoading = true
+                        authViewModel.login(email, password) { success, errorMessage ->
+                            if (success) {
+                                isLoading = false
+                                //navigate to home screen
+                                navController.navigate("home") {
+                                    popUpTo("auth") {
+                                        inclusive = true
+                                    }
 
+                                }
+                            } else {
+                                isLoading = false
+                                AppUtil.showToast(context, errorMessage ?: "Something went wrong")
                             }
-                        } else {
-                            isLoading = false
-                            AppUtil.showToast(context,errorMessage ?: "Something went wrong")
                         }
                     }
-
                 },
                 enabled = !isLoading,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(60.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                elevation = ButtonDefaults.buttonElevation(defaultElevation = 8.dp),
             ) {
                 Text(text = if(isLoading) "Logging in..." else "Login",
                     fontSize = 22.sp,

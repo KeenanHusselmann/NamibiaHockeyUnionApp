@@ -34,6 +34,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -75,24 +76,24 @@ fun TeamRegistrationScreen(modifier: Modifier = Modifier, navController: NavCont
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.logotr),
+                painter = painterResource(id = R.drawable.logonhu),
                 contentDescription = "Login",
                 modifier = Modifier
                     .padding(top = 20.dp)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop
+
 
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(60.dp))
 
             Text(
                 text = "Register New Team",
                 modifier = Modifier.fillMaxWidth(),
                 style = TextStyle(
-                    fontSize = 26.sp,
-                    fontFamily = FontFamily.Monospace,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 32.sp,
+                    fontFamily = FontFamily.Serif,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Center
                 )
             )
 
@@ -141,33 +142,38 @@ fun TeamRegistrationScreen(modifier: Modifier = Modifier, navController: NavCont
 
                 Button(
                     onClick = {
-                        isLoading = true
-                        authViewModel.teamSignup(teamName, category) { success, errorMessage ->
-                            if (success) {
-                                isLoading = false
-                                //navigate to home screen
-                                navController.navigate("home") {
-                                    popUpTo("auth") {//clearing backstack
-                                        inclusive = true
+                        when {
+                            teamName.isBlank() || category.isBlank() -> AppUtil.showToast(context, "Please enter Team Name and Category")
+                            else -> {
+                                isLoading = true
+                                authViewModel.teamSignup(teamName, category) { success, errorMessage ->
+                                    isLoading = false
+                                    if (success) {
+                                        AppUtil.showToast(context, "Team Successfully Registered")
+                                        navController.navigate("home") {
+                                            popUpTo("auth") {
+                                                inclusive = true
+                                            }
+                                        }
+                                    } else {
+                                        AppUtil.showToast(context, errorMessage ?: "Something went wrong")
                                     }
                                 }
-                            } else {
-                                isLoading = false
-                                AppUtil.showToast(context, errorMessage ?: "Something went wrong")
                             }
                         }
-
                     },
                     enabled = !isLoading,
                     modifier = Modifier
                         .fillMaxSize()
                         .height(60.dp),
                     colors = ButtonDefaults
-                        .buttonColors(containerColor = Color.Transparent)
+                        .buttonColors(containerColor = Color.Transparent),
+                            elevation = ButtonDefaults.buttonElevation(defaultElevation = 8.dp),
                 ) {
                     Text(
                         text = if (isLoading) "Registering Team..." else "Register Team",
                         fontSize = 22.sp,
+                        fontWeight = FontWeight.SemiBold,
                         color = Color.DarkGray
                     )
                 }

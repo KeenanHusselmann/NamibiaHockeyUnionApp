@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,7 +26,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.namibiahockeyunionapp.GlobalNavigation.navController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -62,10 +67,12 @@ fun Header(modifier: Modifier = Modifier) {
             )
         }
         IconButton(onClick = {
-            // TODO: Implement search functionality
-            println("Search clicked")
+
+           Firebase.auth.signOut()
+            navController.navigate("auth") {
+                popUpTo("home") { inclusive = true }}
         }) {
-            Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
+            Icon(imageVector = Icons.Default.ExitToApp, contentDescription = "Back")
         }
     }
 }

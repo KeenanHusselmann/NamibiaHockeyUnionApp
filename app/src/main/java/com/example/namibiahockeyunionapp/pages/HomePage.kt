@@ -23,11 +23,21 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import com.example.namibiahockeyunionapp.R
-
+import androidx.compose.ui.platform.LocalUriHandler
 @Composable
 fun HomePage(modifier: Modifier = Modifier) {
+
+    val uriHandler = LocalUriHandler.current
+    val websiteUrl = "https://namibiahockey.org/"
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -62,16 +72,46 @@ fun HomePage(modifier: Modifier = Modifier) {
             News(modifier)
 
 
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(bottom = 100.dp),
+                contentAlignment = Alignment.BottomCenter
+            ) {
+                Box(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .height(60.dp)
 
-            Button(onClick = {
-                Firebase.auth.signOut()
-                navController.navigate("auth") {
-                    popUpTo("home") { inclusive = true }
+                        .background(
+                            brush = Brush.horizontalGradient(
+                                colors = listOf(Color(0xFF00C853), Color(0xFF00E5FF)) // Green to Cyan
+                            ),
+                            shape = RoundedCornerShape(30.dp)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Button(
+                        onClick = {
+                            uriHandler.openUri(websiteUrl)
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Transparent
+                        ),
+                        elevation = ButtonDefaults.buttonElevation(defaultElevation = 8.dp),
+
+                    ) {
+                        Text(
+                            text = "Visit Website",
+                            fontSize = 22.sp,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(10.dp)
+                        )
+                    }
                 }
-            })
-            {
-                Text(text = "Logout")
             }
+
         }
     }
 }

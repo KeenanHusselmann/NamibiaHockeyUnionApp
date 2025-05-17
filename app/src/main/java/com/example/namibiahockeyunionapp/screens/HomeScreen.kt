@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -23,7 +24,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
 import com.example.namibiahockeyunionapp.GlobalNavigation.navController
 import com.example.namibiahockeyunionapp.pages.HomePage
-import com.example.namibiahockeyunionapp.pages.MatchesPage
 import com.example.namibiahockeyunionapp.pages.PlayersPage
 import com.example.namibiahockeyunionapp.pages.ProfilePage
 import com.example.namibiahockeyunionapp.pages.TeamsPage
@@ -35,7 +35,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
     val navItemList = listOf(
         NavItem("Home", Icons.Default.Home),
         NavItem("Players", Icons.Default.Person),
-        NavItem("Teams", Icons.Default.AccountBox),
+        NavItem("Teams", Icons.Default.People),
         NavItem("Register", Icons.Default.Add),
         NavItem("Profile", Icons.Default.AccountCircle)
     )
@@ -73,12 +73,14 @@ fun ContentScreen(modifier: Modifier = Modifier, selectedIndex : Int){
         0-> HomePage(modifier)
         1-> PlayersPage(modifier, playersId = "players" )
         2-> TeamsPage(
-            modifier, playerId = "players",
-            categoryId = "players" ,
-            qty = 0
+            modifier,
+            categoryId = TODO(),
+            playerId = TODO(),
+            qty = TODO(),
+            navController = TODO()
         )
         3-> TeamRegistrationScreen(modifier, navController)
-        4-> ProfilePage(modifier)
+        4-> ProfilePage(modifier, navController, onLogout = {})
     }
 }
 

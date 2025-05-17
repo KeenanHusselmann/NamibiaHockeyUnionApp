@@ -38,6 +38,14 @@ android {
     buildFeatures {
         compose = true
     }
+    composeOptions{
+        kotlinCompilerExtensionVersion = "1.5.9"
+    }
+    packaging{
+        resources{
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
 dependencies {
@@ -65,4 +73,13 @@ dependencies {
     implementation ("io.coil-kt:coil-compose:2.2.0")
     implementation("com.tbuonomo:dotsindicator:5.1.0")
     implementation("androidx.compose.material:material-icons-extended")
+
+
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth.ktx)
+
 }
