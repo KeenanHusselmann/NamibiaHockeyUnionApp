@@ -36,3 +36,50 @@ Navigation is controlled by a global NavController through a singleton object.
 
 ## 📁 Project Structure
 
+├── pages/ # Player, Team, News Pages
+├── screens/ # Login, Signup, Home, Registration Screens
+├── navigation/ # App Navigation Setup
+├── viewmodel/ # ViewModel logic
+├── models/ # Data Models (Player, Team)
+├── services/ # Firebase Service Layer
+└── utils/ # Utility Classes & Constants
+
+## ✅ MoSCoW Prioritization
+
+- Must Have:
+  - Authentication
+  - Team and Player Registration
+  - Real-time News
+- Should Have:
+  - Event Participation
+  - Role-based Access
+- Could Have:
+  - Push Notifications
+  - Calendar View
+- Won’t Have (in MVP):
+  - Social Media Integration
+  - E-Commerce Features
+
+## 🧪 Testing
+
+- ✅ Manual Testing on real Android devices
+- ✅ Firebase Emulator Suite for safe DB operations
+- ✅ Unit Testing (JUnit) on ViewModels and logic
+- ✅ Peer Code Reviews
+
+## 🔍 Screenshots
+
+> Add screenshots or screen recordings of the app here.
+
+## 🙌 Contributors
+
+- Keenan Husselmann - Lead developer
+- Lance Cloete - Team Lead
+- Edmund Jansen - UI Developer
+- Sander Santana - Backend developer
+
+
+
+## 🌐 Website Link
+
+Visit NHU Official Website: https://namibiahockey.org
