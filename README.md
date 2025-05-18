@@ -36,13 +36,13 @@ Navigation is controlled by a global NavController through a singleton object.
 
 ## 📁 Project Structure
 
-├── pages/ # Player, Team, News Pages
-├── screens/ # Login, Signup, Home, Registration Screens
-├── navigation/ # App Navigation Setup
-├── viewmodel/ # ViewModel logic
-├── models/ # Data Models (Player, Team)
-├── services/ # Firebase Service Layer
-└── utils/ # Utility Classes & Constants
+## ├── pages/ # Player, Team, News Pages
+## ├── screens/ # Login, Signup, Home, Registration Screens
+## ├── navigation/ # App Navigation Setup
+## ├── viewmodel/ # ViewModel logic
+## ├── models/ # Data Models (Player, Team)
+## ├── services/ # Firebase Service Layer
+## └── utils/ # Utility Classes & Constants
 
 ## ✅ MoSCoW Prioritization
 
