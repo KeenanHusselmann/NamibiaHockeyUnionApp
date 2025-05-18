@@ -16,17 +16,13 @@
 This application aims to provide the following core functionalities:
 
 * **Team Registration:** Allows teams to register their details and manage their information.
-* **Event Entries:** Enables teams to register for events and view event details.
 * **Player Registration & Management:** Facilitates player registration and team roster management.
-* **Real-Time Information Sharing:** Provides real-time updates, news, and notifications.
+* **Real-Time Information Sharing:** Provides news.
 
 ## Features
 
 * User Authentication (Login/Signup) using Firebase Authentication.
 * Team registration and management.
-* Event registration and scheduling.
-* Player registration and management.
-* Real-time updates and notifications.
 * User-friendly interface using Jetpack Compose.
 * Data storage and retrieval using Firebase Firestore/Realtime Database.
 
