@@ -72,13 +72,7 @@ fun ContentScreen(modifier: Modifier = Modifier, selectedIndex : Int){
     when(selectedIndex){
         0-> HomePage(modifier)
         1-> PlayersPage(modifier, playersId = "players" )
-        2-> TeamsPage(
-            modifier,
-            categoryId = TODO(),
-            playerId = TODO(),
-            qty = TODO(),
-            navController = TODO()
-        )
+        2-> TeamsPage(modifier, categoryId = "teams", playerId = "players", qty = 1, navController)
         3-> TeamRegistrationScreen(modifier, navController)
         4-> ProfilePage(modifier, navController, onLogout = {})
     }

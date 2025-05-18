@@ -63,7 +63,7 @@ fun AppNavigation(modifier: Modifier = Modifier){
             val headlineId = it.arguments?.getString("headlineId")
             NewsDetailsPage(modifier, headlineId?: "")
         }
-        composable(" /{playerCategoryId}"){
+        composable("players-category/{playerCategoryId}"){
             val playerCategoryId = it.arguments?.getString("playerCategoryId")
             PlayersCategoryPage(modifier, playerCategoryId?: "")
         }
