@@ -1,5 +1,5 @@
 # MAP711S Group Assignment Assignment
-
+![Application Screenshot](assets/screenshot1.png)
  In this task, students are expected to develop a mobile application for the Namibia
  Hockey Union (https://namibiahockey.org) in groups of four(4) or five (5) students.
  The minimum functional requirements of the application are, but not limited to, the
