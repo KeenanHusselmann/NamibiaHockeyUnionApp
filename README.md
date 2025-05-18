@@ -7,9 +7,7 @@ This is a mobile application developed for the Namibia Hockey Union (NHU) to fac
 - 🔐 User Authentication (Sign Up, Login, Logout)
 - 🏑 Team Registration & Management
 - 👤 Player Registration & Categorization
-- 📅 Event Participation Entry
 - 📰 Real-Time News and Information Sharing
-- ⚙️ Admin and User Role Access
 
 ## 🚀 Tech Stack
 
