@@ -1,21 +1,59 @@
 # Namibia Hockey Union Mobile Application
 
-This is a mobile application developed for the Namibia Hockey Union (NHU) to facilitate team registration, player management, event entries, and real-time news and updates. The app was developed as part of a student project with a focus on real-world software engineering principles using Android Studio, Jetpack Compose, and Firebase.
+This application aims to provide the following core functionalities:
 
-## 📱 Features
+* **Team Registration:** Allows teams to register their details and manage their information.
+* **Event Entries:** Enables teams to register for events and view event details.
+* **Player Registration & Management:** Facilitates player registration and team roster management.
+* **Real-Time Information Sharing:** Provides real-time updates, news, and notifications.
 
-- 🔐 User Authentication (Sign Up, Login, Logout)
-- 🏑 Team Registration & Management
-- 👤 Player Registration & Categorization
-- 📰 Real-Time News and Information Sharing
+## Features
 
-## 🚀 Tech Stack
+* User Authentication (Login/Signup) using Firebase Authentication.
+* Team registration and management.
+* Event registration and scheduling.
+* Player registration and management.
+* Real-time updates and notifications.
+* User-friendly interface using Jetpack Compose.
+* Data storage and retrieval using Firebase Firestore/Realtime Database.
 
-- Android Studio (IDE)
-- Kotlin & Jetpack Compose (UI Framework)
-- Firebase Authentication & Firestore
-- MVVM Architecture
-- Jetpack Navigation Component
+## Technology Stack
+
+* **Android Development:** Kotlin
+* **UI Framework:** Jetpack Compose
+* **Authentication:** Firebase Authentication
+* **Database:** Firebase Firestore/Realtime Database
+* **Navigation:** Jetpack Navigation Compose
+* **Architecture:** MVVM (Model-View-ViewModel)
+
+## Project Structure
+
+
+## Getting Started
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/KeenanHusselmann/MAP_711s_Project_Namibia_Hockey_App/tree/main
+    ```
+
+2.  **Open the project in Android Studio.**
+
+3.  **Set up Firebase:**
+
+    * Create a Firebase project on the Firebase console.
+    * Add your Android app to the Firebase project.
+    * Download the `google-services.json` file and place it in the `app/` directory.
+
+4.  **Build and run the application on an emulator or physical device.**
+
+## Dependencies
+
+* Firebase Authentication
+* Firebase Firestore/Realtime Database
+* Jetpack Compose Navigation
+* Jetpack Compose Lifecycle
+* Other Android Jetpack libraries
 
 ## 🧭 App Navigation
 
@@ -36,13 +74,13 @@ Navigation is controlled by a global NavController through a singleton object.
 
 ## 📁 Project Structure
 
-## ├── pages/ # Player, Team, News Pages
-## ├── screens/ # Login, Signup, Home, Registration Screens
-## ├── navigation/ # App Navigation Setup
-## ├── viewmodel/ # ViewModel logic
-## ├── models/ # Data Models (Player, Team)
-## ├── services/ # Firebase Service Layer
-## └── utils/ # Utility Classes & Constants
+# ├── pages/ # Player, Team, News Pages
+# ├── screens/ # Login, Signup, Home, Registration Screens
+# ├── navigation/ # App Navigation Setup
+# ├── viewmodel/ # ViewModel logic
+# ├── models/ # Data Models (Player, Team)
+# ├── services/ # Firebase Service Layer
+# └── utils/ # Utility Classes & Constants
 
 ## ✅ MoSCoW Prioritization
 
