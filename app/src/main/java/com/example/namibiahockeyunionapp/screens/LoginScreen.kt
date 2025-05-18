@@ -1,7 +1,5 @@
 package com.example.namibiahockeyunionapp.screens
 
-
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -50,169 +48,209 @@ import com.example.namibiahockeyunionapp.R
 import com.example.namibiahockeyunionapp.viewmodel.AuthViewModel
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel = viewModel()) {
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    authViewModel: AuthViewModel = viewModel()
+) {
 
-
+    // State to hold the entered email address. remember saves the state across recompositions.
     var email by remember {
         mutableStateOf("")
     }
 
-
+    // State to hold the entered password. remember saves the state across recompositions.
     var password by remember {
         mutableStateOf("")
     }
 
-    var isLoading by remember{
+    // State to track if a login process is currently in progress.
+    var isLoading by remember {
         mutableStateOf(false)
     }
 
-    var context = LocalContext.current
-    Box(modifier = Modifier.fillMaxSize()){
-        Image( painter = painterResource(id = R.drawable.bg4), contentDescription = "Background Image",
+    // Get the current context for displaying Toast messages or other context-dependent operations.
+    val context = LocalContext.current
+    // Box composable to stack elements on top of each other, allowing for a background image.
+    Box(modifier = Modifier.fillMaxSize()) {
+        // Display the background image, filling the entire screen and scaling to fit.
+        Image(
+            painter = painterResource(id = R.drawable.bg4),
+            contentDescription = "Background Image",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-    Column(
-        modifier = Modifier.fillMaxSize().padding(14.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.logonhu),
-            contentDescription = "Login",
+        // Column to arrange elements vertically in the center of the screen.
+        Column(
             modifier = Modifier
-                .padding(top = 20.dp)
-
-
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Text(
-            text = "Welcome",
-            modifier = Modifier.fillMaxWidth().padding(2.dp),
-            style = TextStyle(
-                textAlign = TextAlign.Center,
-                fontSize = 40.sp,
-                fontFamily = FontFamily.Serif,
-                fontWeight = FontWeight.Bold
-            )
-        )
-
-        Spacer(modifier = Modifier.height(15.dp))
-
-       Column(
-           verticalArrangement = Arrangement.Center,
-           horizontalAlignment = Alignment.CenterHorizontally,
-           modifier = Modifier.fillMaxWidth()) {
-
-        Text(
-            text = "Sign in to your Account",
-            modifier = Modifier.fillMaxWidth(),
-            style = TextStyle(
-                textAlign = TextAlign.Center,
-                fontFamily = FontFamily.Serif,
-                fontSize = 22.sp
-            )
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-           OutlinedTextField(
-               value = email,
-               onValueChange = { newText ->
-                   if (!newText.contains(' ') && !newText.contains('\n')) {
-                       email = newText
-                   }
-               },
-               label = {
-                   Text(text = "Email Address")
-               },
-               keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-               modifier = Modifier.fillMaxWidth()
-           )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-           OutlinedTextField(
-               value = password,
-               onValueChange = { newText ->
-                   if (!newText.contains(' ') && !newText.contains('\n')) {
-                       password = newText
-                   }
-               },
-               label = {
-                   Text(text = "Password")
-               },
-               modifier = Modifier.fillMaxWidth(),
-               visualTransformation = PasswordVisualTransformation()
-           )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
-                .background(
-                    brush = Brush.horizontalGradient(
-
-                        colors = listOf(Color.Green, Color.Cyan)
-                    ),
-                    shape = RoundedCornerShape(30.dp)
-                )
+                .fillMaxSize() // Make the column take the full screen.
+                .padding(14.dp), // Add padding around the column.
+            horizontalAlignment = Alignment.CenterHorizontally, // Center the content horizontally.
+            verticalArrangement = Arrangement.Top // Arrange items from the top.
         ) {
-            Button(
-                onClick = {
-                    if (email.isBlank() || password.isBlank()) {
-                        AppUtil.showToast(context, "Please enter both email and password")
-                    } else {
-                        isLoading = true
-                        authViewModel.login(email, password) { success, errorMessage ->
-                            if (success) {
-                                isLoading = false
-                                //navigate to home screen
-                                navController.navigate("home") {
-                                    popUpTo("auth") {
-                                        inclusive = true
-                                    }
-
-                                }
-                            } else {
-                                isLoading = false
-                                AppUtil.showToast(context, errorMessage ?: "Something went wrong")
-                            }
-                        }
-                    }
-                },
-                enabled = !isLoading,
+            // Display the application logo.
+            Image(
+                painter = painterResource(id = R.drawable.logonhu),
+                contentDescription = "Login",
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                elevation = ButtonDefaults.buttonElevation(defaultElevation = 8.dp),
+                    .padding(top = 20.dp) // Add top padding to the logo.
+            )
+
+            // Add vertical space below the logo.
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Display the "Welcome" text with specific styling.
+            Text(
+                text = "Welcome",
+                modifier = Modifier
+                    .fillMaxWidth() // Make the text take the full width.
+                    .padding(2.dp), // Add some padding around the text.
+                style = TextStyle(
+                    textAlign = TextAlign.Center, // Center the text horizontally.
+                    fontSize = 40.sp, // Set the font size.
+                    fontFamily = FontFamily.Serif, // Use a serif font.
+                    fontWeight = FontWeight.Bold // Make the text bold.
+                )
+            )
+
+            // Add vertical space below the "Welcome" text.
+            Spacer(modifier = Modifier.height(15.dp))
+
+            // Column to group the "Sign in" text, input fields, and buttons.
+            Column(
+                verticalArrangement = Arrangement.Center, // Arrange items vertically in the center.
+                horizontalAlignment = Alignment.CenterHorizontally, // Center the content horizontally.
+                modifier = Modifier.fillMaxWidth() // Make the column take the full width.
             ) {
-                Text(text = if(isLoading) "Logging in..." else "Login",
-                    fontSize = 22.sp,
-                    color = Color.DarkGray)
+
+                // Display the "Sign in to your Account" text.
+                Text(
+                    text = "Sign in to your Account",
+                    modifier = Modifier.fillMaxWidth(), // Make the text take the full width.
+                    style = TextStyle(
+                        textAlign = TextAlign.Center, // Center the text horizontally.
+                        fontFamily = FontFamily.Serif, // Use a serif font.
+                        fontSize = 22.sp // Set the font size.
+                    )
+                )
+
+                // Add vertical space below the "Sign in" text.
+                Spacer(modifier = Modifier.height(20.dp))
+
+                // OutlinedTextField for the email address input.
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { newText ->
+                        // Update the email state, preventing spaces and newlines.
+                        if (!newText.contains(' ') && !newText.contains('\n')) {
+                            email = newText
+                        }
+                    },
+                    label = {
+                        Text(text = "Email Address") // Label for the email input field.
+                    },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text), // Specify the keyboard type.
+                    modifier = Modifier.fillMaxWidth() // Make the input field take the full width.
+                )
+
+                // Add vertical space below the email input field.
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // OutlinedTextField for the password input.
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { newText ->
+                        // Update the password state, preventing spaces and newlines.
+                        if (!newText.contains(' ') && !newText.contains('\n')) {
+                            password = newText
+                        }
+                    },
+                    label = {
+                        Text(text = "Password") // Label for the password input field.
+                    },
+                    modifier = Modifier.fillMaxWidth(), // Make the input field take the full width.
+                    visualTransformation = PasswordVisualTransformation() // Hide the password characters.
+                )
+
+                // Add vertical space below the password input field.
+                Spacer(modifier = Modifier.height(20.dp))
+
+                // Box to create a rounded background with a gradient for the Login button.
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth() // Make the box take the full width.
+                        .height(50.dp) // Set a fixed height for the box.
+                        .background(
+                            brush = Brush.horizontalGradient( // Create a horizontal gradient brush.
+
+                                colors = listOf(Color.Green, Color.Cyan) // Define the colors for the gradient.
+                            ),
+                            shape = RoundedCornerShape(30.dp) // Apply rounded corners to the background.
+                        )
+                ) {
+                    // Button for initiating the login process.
+                    Button(
+                        onClick = {
+                            // Check if email or password fields are blank.
+                            if (email.isBlank() || password.isBlank()) {
+                                // Show a Toast message if either field is empty.
+                                AppUtil.showToast(context, "Please enter both email and password")
+                            } else {
+                                // Set isLoading to true to indicate login in progress.
+                                isLoading = true
+                                // Call the login function from the AuthViewModel.
+                                authViewModel.login(email, password) { success, errorMessage ->
+                                    // Callback after the login attempt.
+                                    if (success) {
+                                        // If login is successful, set isLoading to false.
+                                        isLoading = false
+                                        // Navigate to the "home" screen, removing the "auth" screen from the back stack.
+                                        navController.navigate("home") {
+                                            popUpTo("auth") {
+                                                inclusive = true
+                                            }
+                                        }
+                                    } else {
+                                        // If login fails, set isLoading to false.
+                                        isLoading = false
+                                        // Show a Toast message with the error message or a generic error.
+                                        AppUtil.showToast(context, errorMessage ?: "Something went wrong")
+                                    }
+                                }
+                            }
+                        },
+                        enabled = !isLoading, // Disable the button while loading.
+                        modifier = Modifier
+                            .fillMaxWidth() // Make the button take the full width.
+                            .height(60.dp), // Set a fixed height for the button.
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent), // Make the button's background transparent to show the box's gradient.
+                        elevation = ButtonDefaults.buttonElevation(defaultElevation = 8.dp), // Add a slight elevation to the button.
+                    ) {
+                        // Text displayed on the Login button, showing "Logging in..." while loading.
+                        Text(
+                            text = if (isLoading) "Logging in..." else "Login",
+                            fontSize = 22.sp,
+                            color = Color.DarkGray
+                        )
+                    }
+                }
+                // Add vertical space below the Login button.
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // TextButton to navigate to the sign-up screen.
+                TextButton(onClick = {
+                    navController.navigate("signup") // Navigate to the "signup" route.
+                }) {
+                    Text(text = "Don't have an account?")
+                }
+
+                // TextButton for the "Forgot Password?" option.
+                TextButton(onClick = {
+                    navController.navigate("signup") // Navigate to the "signup" route (could be a dedicated "forgot password" screen later).
+                }) {
+                    Text(text = "Forgot Password?")
+                }
             }
-
         }
-           Spacer(modifier = Modifier.height(8.dp))
-
-           TextButton(onClick = {
-               navController.navigate("signup")
-           }) {
-               Text(text = "Don't have an account?")
-           }
-
-
-           TextButton(onClick = {
-               navController.navigate("signup")
-           }) {
-               Text(text = "Forgot Password?")
-           }
-       }
     }
-}
 }
