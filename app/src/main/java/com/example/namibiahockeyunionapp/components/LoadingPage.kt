@@ -17,33 +17,49 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.namibiahockeyunionapp.R
 
+/**
+ * A composable function that displays a loading page with a rotating logo animation.
+ *
+ * @param modifier Modifier to apply styling or layout behavior to this composable.
+ */
 @Composable
 fun LoadingPage(modifier: Modifier = Modifier) {
+    // Creates an InfiniteTransition that can run animations indefinitely.
     val infiniteTransition = rememberInfiniteTransition(label = "Logo Rotation")
+    // Animates a float value from 0f to 360f infinitely, creating a rotation effect.
     val rotation by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = 360f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 2000)
-        ), label = "Logo Rotation Animation"
+            animation = tween(durationMillis = 2000) // Defines the animation duration of 2000 milliseconds.
+        ),
+        label = "Logo Rotation Animation" // Label for the animation (useful for debugging).
     )
 
+    // A Box composable is used to position its children relative to its edges.
     Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        modifier = modifier.fillMaxSize(), // Makes the Box fill the entire available screen space.
+        contentAlignment = Alignment.Center // Centers the content within the Box.
     ) {
+        // Calls the RotatingLogo composable to display the rotating logo.
         RotatingLogo(rotation = rotation)
     }
 }
 
+/**
+ * A composable function that displays the rotating logo image.
+ *
+ * @param rotation The current rotation angle of the logo in degrees.
+ */
 @Composable
 fun RotatingLogo(rotation: Float) {
+    // Displays an image using a painter resource.
     Image(
-        painter = painterResource(id = R.drawable.logotr),
-        contentDescription = "App Logo",
+        painter = painterResource(id = R.drawable.logotr), // Loads the image from the specified resource ID.
+        contentDescription = "App Logo", // Provides a content description for accessibility.
         modifier = Modifier
-            .size(150.dp)
-            .rotate(rotation)
+            .size(150.dp) // Sets the size of the logo to 150dp x 150dp.
+            .rotate(rotation) // Applies the rotation animation to the image.
     )
 }
 
