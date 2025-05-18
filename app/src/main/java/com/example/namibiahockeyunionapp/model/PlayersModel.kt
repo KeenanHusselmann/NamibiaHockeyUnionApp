@@ -1,5 +1,7 @@
 package com.example.namibiahockeyunionapp.model
 
+
+// Represents an individual player and their some of their details (CR7 again)
 data class PlayersModel(
 
     val id: String = "",

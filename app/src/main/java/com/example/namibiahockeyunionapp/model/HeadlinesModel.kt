@@ -1,5 +1,6 @@
 package com.example.namibiahockeyunionapp.model
 
+// Data class representing a headline item in the app
 data class HeadlinesModel(
     val id : String = "",
     val headline : String = "",
