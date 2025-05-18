@@ -28,65 +28,92 @@ import com.example.namibiahockeyunionapp.model.NewsModel
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 
+/**
+ * A composable function that displays a horizontal list of news categories.
+ * It fetches the news categories from Firebase Firestore.
+ *
+ * @param modifier Modifier to apply styling or layout behavior to this composable.
+ */
 @Composable
-fun News(modifier: Modifier = Modifier){
+fun News(modifier: Modifier = Modifier) {
+    // State to hold the list of news categories fetched from Firebase.
     val newsList = remember {
         mutableStateOf<List<NewsModel>>(emptyList())
     }
 
-    LaunchedEffect(key1 = Unit){
+    // LaunchedEffect is used to perform side effects that should run outside the scope of composition.
+    // The Unit key ensures this effect runs only once when the composable is first created.
+    LaunchedEffect(key1 = Unit) {
+        // Accesses the Firestore database instance.
         Firebase.firestore.collection("data")
+            // Navigates to the document named "news".
             .document("news")
+            // Navigates to the sub-collection named "categories" within the "news" document.
             .collection("categories")
-            .get().addOnCompleteListener() {
-                if(it.isSuccessful){
-                    val resultList = it.result.documents.mapNotNull { doc->
+            // Retrieves all documents from the "categories" sub-collection.
+            .get().addOnCompleteListener { task ->
+                // This lambda is executed when the Firestore operation is complete.
+                if (task.isSuccessful) {
+                    // If the task was successful, map the documents to NewsModel objects.
+                    val resultList = task.result.documents.mapNotNull { doc ->
                         doc.toObject(NewsModel::class.java)
                     }
+                    // Update the newsList state with the fetched list of news categories.
                     newsList.value = resultList
                 }
             }
     }
+    // A LazyRow composable displays a horizontally scrolling list of items.
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(20.dp)
+        horizontalArrangement = Arrangement.spacedBy(20.dp) // Adds a 20dp spacing between each item in the row.
     ) {
+        // The items lambda defines how to display each item in the newsList.
         items(newsList.value) { item ->
+            // For each NewsModel item, the NewsItem composable is called to display it.
             NewsItem(category = item)
         }
     }
 }
-@Composable
-fun NewsItem(category : NewsModel) {
-    Card(
-        modifier = Modifier.size(150.dp)
-            .clickable{
-                GlobalNavigation.navController.navigate("news-headlines/"+category.id)
-            },
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(4.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
 
+/**
+ * A composable function that displays a single news category item in a card format.
+ * Clicking the card navigates to the news headlines page for the selected category.
+ *
+ * @param category The [NewsModel] object containing the data for the news category.
+ */
+@Composable
+fun NewsItem(category: NewsModel) {
+    // A Card composable displays information in a visually distinct and elevated container.
+    Card(
+        modifier = Modifier
+            .size(150.dp) // Sets a fixed size for the card.
+            .clickable {
+                // Navigates to the "news-headlines" screen when the card is clicked,
+                // passing the category ID as a navigation argument.
+                GlobalNavigation.navController.navigate("news-headlines/" + category.id)
+            },
+        shape = RoundedCornerShape(16.dp), // Sets the shape of the card with rounded corners.
+        elevation = CardDefaults.cardElevation(4.dp), // Adds a small shadow to the card.
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface) // Sets the background color of the card.
     ) {
+        // A Column composable arranges its children in a vertical sequence.
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
+            horizontalAlignment = Alignment.CenterHorizontally, // Centers the items horizontally within the Column.
+            verticalArrangement = Arrangement.Center, // Centers the items vertically within the Column.
+            modifier = Modifier.fillMaxSize() // Makes the Column fill the entire space of the Card.
         ) {
 
+            // Displays the name of the news category, centered within the Column.
             Text(text = category.name, textAlign = TextAlign.Center)
+            // Adds a small vertical space below the category name.
             Spacer(modifier = Modifier.height(4.dp))
 
+            // Displays an image asynchronously from the category's image URL.
             AsyncImage(
-                model = category.imageUrl,
-                contentDescription = category.name,
-                modifier = Modifier.size(150.dp)
+                model = category.imageUrl, // The URL of the category's image.
+                contentDescription = category.name, // Provides a content description for accessibility.
+                modifier = Modifier.size(150.dp) // Sets a fixed size for the image (same as the Card).
             )
-
-
-
         }
     }
-
-
-
 }
